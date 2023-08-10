@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private loginPath = environment.apiUrl + 'login';
-  private registerPath = environment.apiUrl + "register";
+  private loginPath = environment.apiUrl + 'identity/login';
+  private registerPath = environment.apiUrl + 'identity/register';
 
   constructor(private http: HttpClient) {}
 
@@ -20,4 +20,11 @@ export class AuthService {
     return this.http.post(this.registerPath, data);
   }
 
+  saveToken(token: any) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
 }

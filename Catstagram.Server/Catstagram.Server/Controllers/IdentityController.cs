@@ -76,7 +76,7 @@
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
 
-            return encryptedToken;
+            return Ok(new { Token = encryptedToken });
         }
     }
 }
