@@ -1,9 +1,8 @@
-﻿namespace Catstagram.Server.Controllers
+﻿namespace Catstagram.Server.Features.Cats
 {
     using Catstagram.Server.Data;
     using Catstagram.Server.Data.Models;
     using Catstagram.Server.Infrastructure;
-    using Catstagram.Server.Models.Cats;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
