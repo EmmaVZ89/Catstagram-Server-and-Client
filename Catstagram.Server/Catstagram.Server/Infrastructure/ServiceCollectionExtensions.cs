@@ -2,15 +2,38 @@
 {
     using Catstagram.Server.Data;
     using Catstagram.Server.Data.Models;
+    using Catstagram.Server.Features.Cats;
+    using Catstagram.Server.Features.Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using System.Text;
 
     public static class ServiceCollectionExtensions
     {
+        public static AppSettings GetApplicationSettings(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            var applicationSettingsConfiguration = configuration.GetSection("ApplicationSettings");
+            services.Configure<AppSettings>(applicationSettingsConfiguration);
+            var appSettings = applicationSettingsConfiguration.Get<AppSettings>();
+            return appSettings;
+        }
+
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        {
+            services
+                .AddDbContext<CatstagramDbContext>(options => options
+                    .UseSqlServer(configuration.GetDefaultConnectionString()));
+
+            return services;
+        }
+
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
@@ -53,6 +76,29 @@
             return services;
         }
 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services
+                .AddTransient<IIdentityService, IdentityService>()
+                .AddTransient<ICatService, CatService>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo
+                    {
+                        Title = "My Catstagram API",
+                        Version = "v1"
+                    });
+            });
+
+            return services;
+        }
     }
 }

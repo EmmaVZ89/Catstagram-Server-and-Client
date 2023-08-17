@@ -23,6 +23,7 @@
             this.appSettings = appSettings.Value;
         }
 
+        [HttpPost]
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterUserRequestModel model)
         {
@@ -42,6 +43,7 @@
             return BadRequest(result.Errors);
         }
 
+        [HttpPost]
         [Route(nameof(Login))]
         public async Task<ActionResult<string>> Login(LoginRequestModel model)
         {

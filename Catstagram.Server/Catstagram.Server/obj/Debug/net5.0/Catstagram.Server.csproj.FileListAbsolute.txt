@@ -60,3 +60,8 @@ C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\obj\
 C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\obj\Debug\net5.0\Catstagram.Server.pdb
 C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\obj\Debug\net5.0\Catstagram.Server.genruntimeconfig.cache
 C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Note\Desktop\Catstagram.Server\Catstagram.Server\Catstagram.Server\obj\Debug\net5.0\Catstagram.Server.MvcApplicationPartsAssemblyInfo.cs

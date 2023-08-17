@@ -1,7 +1,5 @@
 ﻿namespace Catstagram.Server.Features.Cats
 {
-    using Catstagram.Server.Data;
-    using Catstagram.Server.Data.Models;
     using Catstagram.Server.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -9,11 +7,11 @@
 
     public class CatsController : ApiController
     {
-        private readonly CatstagramDbContext data;
+        private readonly ICatService catService;
 
-        public CatsController(CatstagramDbContext data)
+        public CatsController(ICatService catService)
         {
-            this.data = data;
+            this.catService = catService;
         }
 
         [Authorize]
@@ -24,18 +22,9 @@
             {
                 var userId = this.User.GetId();
 
-                var ca = new Cat
-                {
-                    Description = model.Description,
-                    ImageUrl = model.ImageUrl,
-                    UserId = userId
-                };
+                var id = await this.catService.Create(model.ImageUrl, model.Description, userId);
 
-                this.data.Add(ca);
-
-                await this.data.SaveChangesAsync();
-
-                return Created(nameof(this.Create), ca.Id);
+                return Created(nameof(this.Create), id);
             }
             catch (System.Exception ex)
             {

@@ -20,10 +20,11 @@ namespace Catstagram.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<CatstagramDbContext>(options => options
-                    .UseSqlServer(this.Configuration.GetDefaultConnectionString()))
+                .AddDatabase(this.Configuration)
                 .AddIdentity()
                 .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration))
+                .AddApplicationServices()
+                .AddSwagger()
                 .AddControllers();
         }
 
@@ -34,7 +35,9 @@ namespace Catstagram.Server
             //    app.UseDeveloperExceptionPage();
             //}
 
-            app.UseRouting()
+            app
+            .UseSwaggerUI()
+            .UseRouting()
             .UseCors(options => options
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
