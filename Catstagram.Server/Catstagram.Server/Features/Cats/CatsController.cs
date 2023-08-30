@@ -3,6 +3,7 @@
     using Catstagram.Server.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class CatsController : ApiController
@@ -12,6 +13,16 @@
         public CatsController(ICatService catService)
         {
             this.catService = catService;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IEnumerable<CatListingResponseModel>> Mine()
+        {
+            var userId = this.User.GetId();
+            var cats = await this.catService.ByUser(userId);
+
+            return cats;
         }
 
         [Authorize]

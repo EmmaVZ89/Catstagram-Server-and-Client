@@ -3,6 +3,9 @@ namespace Catstagram.Server.Features.Cats
 {
     using Catstagram.Server.Data;
     using Catstagram.Server.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class CatService : ICatService
@@ -30,5 +33,17 @@ namespace Catstagram.Server.Features.Cats
             return cat.Id;
         }
 
+        public async Task<IEnumerable<CatListingResponseModel>> ByUser(string userId)
+        {
+            return await this.data
+                .Cats
+                .Where(c => c.UserId == userId)
+                .Select(c => new CatListingResponseModel
+                {
+                    Id = c.Id,
+                    ImageUrl = c.ImageUrl
+                })
+                .ToListAsync();
+        }
     }
 }
