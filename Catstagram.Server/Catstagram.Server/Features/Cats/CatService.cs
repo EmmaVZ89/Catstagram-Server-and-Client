@@ -1,8 +1,8 @@
-﻿
-namespace Catstagram.Server.Features.Cats
+﻿namespace Catstagram.Server.Features.Cats
 {
     using Catstagram.Server.Data;
     using Catstagram.Server.Data.Models;
+    using Catstagram.Server.Features.Cats.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,17 +33,38 @@ namespace Catstagram.Server.Features.Cats
             return cat.Id;
         }
 
-        public async Task<IEnumerable<CatListingResponseModel>> ByUser(string userId)
+        public async Task<IEnumerable<CatListingServiceModel>> ByUser(string userId)
         {
             return await this.data
                 .Cats
                 .Where(c => c.UserId == userId)
-                .Select(c => new CatListingResponseModel
+                .Select(c => new CatListingServiceModel
                 {
                     Id = c.Id,
                     ImageUrl = c.ImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<CatDetailsServiceModel> Details(int id)
+        {
+            return await this.data
+                  .Cats
+                  .Where(c => c.Id == id)
+                  .Select(c => new CatDetailsServiceModel
+                  {
+                      Id = c.Id,
+                      UserId = c.UserId,
+                      ImageUrl = c.ImageUrl,
+                      Description = c.Description,
+                      UserName = c.User.UserName
+                  })
+                  .FirstOrDefaultAsync();
+        }
+
+        Task<IEnumerable<CatListingServiceModel>> ICatService.ByUser(string userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

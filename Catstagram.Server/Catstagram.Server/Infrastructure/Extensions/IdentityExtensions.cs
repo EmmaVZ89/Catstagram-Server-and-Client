@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace Catstagram.Server.Infrastructure
+﻿namespace Catstagram.Server.Infrastructure.Extensions
 {
+    using System.Linq;
+    using System.Security.Claims;
+
     public static class IdentityExtensions
     {
         public static string GetId(this ClaimsPrincipal user)

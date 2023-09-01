@@ -1,9 +1,10 @@
-﻿namespace Catstagram.Server.Infrastructure
+﻿namespace Catstagram.Server.Infrastructure.Extensions
 {
     using Catstagram.Server.Data;
     using Catstagram.Server.Data.Models;
     using Catstagram.Server.Features.Cats;
     using Catstagram.Server.Features.Identity;
+    using Catstagram.Server.Infrastructure.Filters;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -99,6 +100,14 @@
             });
 
             return services;
+        }
+
+        public static void AddApiControllers(this IServiceCollection services)
+        {
+            services
+                .AddControllers(options => options
+                .Filters
+                .Add<ModelOrNotFoundActionFilter>());
         }
     }
 }
